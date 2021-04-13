@@ -1,10 +1,12 @@
 from sympy import *
-
+import matplotlib.pyplot as plt
 
 ##### - override this block for your task
 # #11
 
-# function for y'
+#y'' + y'*tanx - y*cos^2 x = 0
+
+# function for y'' (y'' = y*cos^2 x - y'*tanx)
 def dy_dx_func(x, y, dy_dx):
     return N(y * cos(x) ** 2 - dy_dx * tan(x))
 
@@ -58,3 +60,14 @@ print("calculated value: ", ys[-1])
 
 print()
 print("true value: ", true_y(x_end).evalf())
+
+fig, ax = plt.subplots()
+ax.set_axisbelow(True)
+ax.grid(zorder=-1)
+ax.plot(x, ys)
+true_ys = []
+for x_ in x:
+    true_ys.append(true_y(x_))
+ax.plot(x, true_ys)
+ax.legend(["Euler's method", "True function"])
+plt.show()
